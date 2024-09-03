@@ -6,7 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import vn.trex.user.manager.data.model.User
 
-val USERS: List<User> = listOf(
+val USERS: MutableList<User> = mutableListOf(
   User(
     id = 1,
     avatarUrl = "https://avatars.githubusercontent.com/u/2?v=4",

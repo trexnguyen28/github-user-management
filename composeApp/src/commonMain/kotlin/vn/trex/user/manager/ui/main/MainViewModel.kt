@@ -1,5 +1,11 @@
 package vn.trex.user.manager.ui.main
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.ktor.client.call.*
@@ -12,37 +18,30 @@ import vn.trex.user.manager.data.model.HttpErrorResponse
 import vn.trex.user.manager.data.model.User
 import vn.trex.user.manager.data.repository.UserRepository
 import vn.trex.user.manager.ui.components.ScreenState
+import vn.trex.user.manager.utils.onError
+import vn.trex.user.manager.utils.onSuccess
 
 class MainViewModel(
   private val userRepository: UserRepository
 ) : ViewModel() {
-
-  private val _usersStateFlow =
-    MutableStateFlow<ScreenState<List<User>>>(ScreenState.Loading)
-  val usersStateFlow: StateFlow<ScreenState<List<User>>>
-    get() = _usersStateFlow
+  var items: MutableList<User> by mutableStateOf(mutableListOf())
+  var isLoading: Boolean by mutableStateOf(true)
 
   init {
     getUsers()
   }
 
-  private fun getUsers() {
+  fun getUsers() {
+    isLoading = true
+    //
     viewModelScope.launch(Dispatchers.IO) {
-      _usersStateFlow.emit(ScreenState.Loading)
-
-      try {
-        val httpResponse = userRepository.getUsers()
-
-        if (httpResponse.status.value in 200..299) {
-          val body = httpResponse.body<List<User>>()
-          _usersStateFlow.emit(ScreenState.Success(body))
-        } else {
-          val body = httpResponse.body<HttpErrorResponse>()
-          _usersStateFlow.emit(ScreenState.Error(body.message))
+      userRepository.getUsers()
+        .onSuccess { users ->
+          viewModelScope.launch(Dispatchers.Main) {
+            items = users
+            isLoading = false
+          }
         }
-      } catch (e: Exception) {
-        _usersStateFlow.emit(ScreenState.Error(e.message.toString()))
-      }
     }
   }
 }

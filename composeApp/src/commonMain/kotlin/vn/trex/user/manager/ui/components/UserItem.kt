@@ -27,7 +27,7 @@ fun UserItem(
   user: User,
   onClick: () -> Unit,
 ) {
-  val AVATAR_SIZE = 64.dp
+  val size = 64.dp
 
   Card(
     modifier = Modifier
@@ -47,8 +47,8 @@ fun UserItem(
       AsyncImage(
         model = user.avatarUrl,
         modifier = Modifier
-          .height(AVATAR_SIZE)
-          .width(AVATAR_SIZE)
+          .height(size)
+          .width(size)
           .clip(CircleShape),
         contentDescription = null
       )

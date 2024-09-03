@@ -13,40 +13,39 @@ import androidx.compose.ui.Modifier
 
 @Composable
 internal fun <T> EndlessLazyColumn(
-    modifier: Modifier = Modifier,
-    loading: Boolean = false,
-    listState: LazyListState = rememberLazyListState(),
-    items: List<T>,
-    itemKey: (T) -> Any,
-    itemContent: @Composable (T) -> Unit,
-    loadingItem: @Composable () -> Unit,
-    loadMore: () -> Unit
+  modifier: Modifier = Modifier,
+  loading: Boolean = false,
+  listState: LazyListState = rememberLazyListState(),
+  items: MutableList<T>,
+  itemKey: (T) -> Any,
+  itemContent: @Composable (T) -> Unit,
+  loadingItem: @Composable () -> Unit,
+  loadMore: () -> Unit
 ) {
 
-    val reachedBottom: Boolean by remember { derivedStateOf { listState.reachedBottom() } }
+  val reachedBottom: Boolean by remember { derivedStateOf { listState.reachedBottom() } }
 
-    // load more if scrolled to bottom
-    LaunchedEffect(reachedBottom) {
-        if (reachedBottom && !loading) loadMore()
-    }
+  // load more if scrolled to bottom
+  LaunchedEffect(reachedBottom) {
+    if (reachedBottom && !loading) loadMore()
+  }
 
-    LazyColumn(modifier = modifier, state = listState) {
-        items(
-            items = items,
-            key = { item: T -> itemKey(item) },
-        ) { item ->
-            itemContent(item)
-        }
-        if (loading) {
-            item {
-                loadingItem()
-            }
-        }
+  LazyColumn(modifier = modifier, state = listState) {
+    items(
+      items = items,
+      key = { item: T -> itemKey(item) },
+    ) { item ->
+      itemContent(item)
     }
+    if (loading) {
+      item {
+        loadingItem()
+      }
+    }
+  }
 }
 
-
 private fun LazyListState.reachedBottom(): Boolean {
-    val lastVisibleItem = this.layoutInfo.visibleItemsInfo.lastOrNull()
-    return lastVisibleItem?.index != 0 && lastVisibleItem?.index == this.layoutInfo.totalItemsCount - 1
+  val lastVisibleItem = this.layoutInfo.visibleItemsInfo.lastOrNull()
+  return lastVisibleItem?.index != 0 && lastVisibleItem?.index == this.layoutInfo.totalItemsCount - 4
 }
