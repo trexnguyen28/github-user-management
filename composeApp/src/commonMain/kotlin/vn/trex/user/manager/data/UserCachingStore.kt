@@ -25,9 +25,6 @@ class UserCachingStore(
     val prefKey = generatePrefKey(prefix = USERS_PREFIX, key = key)
     val data = Json.encodeToString(users)
 
-    Logger.d(messageString = "Save2 $key $data", tag = "Debug DataStore")
-
-
     dataStore.edit { preferences -> preferences[prefKey] = data }
   }
 

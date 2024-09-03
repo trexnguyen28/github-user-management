@@ -11,6 +11,7 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import vn.trex.user.manager.data.model.User
@@ -51,6 +52,14 @@ class GithubClient {
           parameters.append("per_page", limit.toString())
           parameters.append("since", offset.toString())
         }
+      }
+    }
+  }
+
+  suspend fun getUserDetail(id: String): User {
+    return handleErrors {
+      client.get {
+        url { path(NetworkConstants.UserApi.byId(id)) }
       }
     }
   }

@@ -17,11 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.koin.core.component.KoinComponent
 import vn.trex.user.manager.di.koinViewModel
 import vn.trex.user.manager.ui.components.EndlessLazyColumn
 import vn.trex.user.manager.ui.components.UserItem
-
+import vn.trex.user.manager.ui.detail.DetailScreen
 
 class MainScreen : Screen, KoinComponent {
 
@@ -35,7 +37,9 @@ class MainScreen : Screen, KoinComponent {
         )
       },
     ) {
-      val mainViewModel = koinViewModel<MainViewModel>()
+      val navigator = LocalNavigator.currentOrThrow
+      //
+      val mainViewModel = koinViewModel<MainViewModel>(key = "Main")
       val isLoading by mainViewModel.isLoading.collectAsState()
       val items by mainViewModel.items.collectAsState()
 
@@ -43,7 +47,11 @@ class MainScreen : Screen, KoinComponent {
         loading = isLoading,
         modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
         items = items,
-        itemContent = { user -> UserItem(user = user, onClick = {}) },
+        itemContent = { user ->
+          UserItem(
+            user = user,
+            onClick = { navigator.push(DetailScreen(user)) })
+        },
         itemKey = { it.id },
         loadingItem = {
           Box(

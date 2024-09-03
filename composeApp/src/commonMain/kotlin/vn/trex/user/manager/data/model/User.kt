@@ -9,8 +9,8 @@ data class User(
   @SerialName("avatar_url") var avatarUrl: String,
   @SerialName("login") var userName: String,
   @SerialName("html_url") var htmlUrl: String,
-  @SerialName("location") var location: String? = null,
-  @SerialName("followers") var followers: Int? = null,
-  @SerialName("following") var following: Int? = null,
-  @SerialName("blog") var blog: String? = null,
+  @SerialName("location") var location: String? = "-",
+  @SerialName("followers") var followers: Int? = 0,
+  @SerialName("following") var following: Int? = 0,
+  @SerialName("blog") var blog: String = "-",
 )

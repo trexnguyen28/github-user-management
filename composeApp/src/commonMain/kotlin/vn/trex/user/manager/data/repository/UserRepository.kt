@@ -21,8 +21,6 @@ class UserRepository(
       var response = userCachingStore.getUsers(key)
       val isMissCache = response == null
 
-      Logger.d(messageString = "Get1 $key $response", tag = "Debug DataStore")
-
       if (isMissCache) {
         response = githubClient.getUsers(offset, limit)
       }
@@ -39,6 +37,26 @@ class UserRepository(
       }
 
       Result.success(users)
+    } catch (e: Exception) {
+      e.printStackTrace()
+      Result.failure(e)
+    }
+  }
+
+  suspend fun getUserDetail(id: String): Result<User?> {
+    return try {
+      var response = userCachingStore.getUser(id)
+      val isMissCache = response == null
+
+      if (isMissCache) {
+        response = githubClient.getUserDetail(id)
+      }
+
+      if (response != null && isMissCache) {
+        userCachingStore.saveUser(id, response)
+      }
+
+      Result.success(response)
     } catch (e: Exception) {
       e.printStackTrace()
       Result.failure(e)

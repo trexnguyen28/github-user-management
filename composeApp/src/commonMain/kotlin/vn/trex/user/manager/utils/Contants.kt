@@ -71,17 +71,9 @@ object NetworkConstants {
   const val pageLimit = 20
 
   object UserApi {
-    val ROUTE = BASE_URL + "users"
-    val byId: (String) -> String = { id -> "$ROUTE/$id" }
+    const val ROUTE = BASE_URL + "users"
+    val byId: (String) -> String = { id -> "users/$id" }
   }
 }
-
-val FadeIn = fadeIn(animationSpec = tween(220, delayMillis = 90)) +
-  scaleIn(
-    initialScale = 0.92f,
-    animationSpec = tween(220, delayMillis = 90)
-  )
-
-val FadeOut = fadeOut(animationSpec = tween(90))
 
 const val dataStoreFileName = "caching.preferences_pb"
