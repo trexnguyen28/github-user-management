@@ -47,5 +47,7 @@ internal fun <T> EndlessLazyColumn(
 
 private fun LazyListState.reachedBottom(): Boolean {
   val lastVisibleItem = this.layoutInfo.visibleItemsInfo.lastOrNull()
-  return lastVisibleItem?.index != 0 && lastVisibleItem?.index == this.layoutInfo.totalItemsCount - 4
+  val buffer = 4
+
+  return lastVisibleItem?.index != 0 && lastVisibleItem?.index == this.layoutInfo.totalItemsCount - buffer
 }

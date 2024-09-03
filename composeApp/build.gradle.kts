@@ -48,8 +48,6 @@ kotlin {
       implementation(compose.ui)
       implementation(compose.components.resources)
       implementation(compose.components.uiToolingPreview)
-      implementation(libs.androidx.lifecycle.viewmodel)
-      implementation(libs.androidx.lifecycle.runtime.compose)
 
       // Ktor
       implementation(libs.bundles.ktor)
@@ -62,10 +60,12 @@ kotlin {
 
       // Voyager
       implementation(libs.voyager.navigator)
+      implementation(libs.navigation.compose)
 
       // Koin
       api(libs.koin.core)
       implementation(libs.koin.compose)
+      implementation(libs.lifecycle.viewmodel)
     }
     nativeMain.dependencies {
       implementation(libs.ktor.client.darwin)

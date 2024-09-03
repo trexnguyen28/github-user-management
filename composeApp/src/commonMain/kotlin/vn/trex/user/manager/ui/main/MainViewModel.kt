@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import vn.trex.user.manager.data.model.HttpErrorResponse
 import vn.trex.user.manager.data.model.User
@@ -24,22 +25,26 @@ import vn.trex.user.manager.utils.onSuccess
 class MainViewModel(
   private val userRepository: UserRepository
 ) : ViewModel() {
-  var items: MutableList<User> by mutableStateOf(mutableListOf())
-  var isLoading: Boolean by mutableStateOf(true)
+  private var _items = MutableStateFlow<MutableList<User>>(mutableListOf())
+  private var _isLoading = MutableStateFlow(true)
+
+  //
+  val items = _items.asStateFlow()
+  val isLoading = _isLoading.asStateFlow()
 
   init {
     getUsers()
   }
 
   fun getUsers() {
-    isLoading = true
+    _isLoading.value = true
     //
     viewModelScope.launch(Dispatchers.IO) {
       userRepository.getUsers()
         .onSuccess { users ->
           viewModelScope.launch(Dispatchers.Main) {
-            items = users
-            isLoading = false
+            _items.value = users
+            _isLoading.value = false
           }
         }
     }
