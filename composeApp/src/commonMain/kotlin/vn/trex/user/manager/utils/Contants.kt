@@ -2,8 +2,6 @@ package vn.trex.user.manager.utils
 
 import vn.trex.user.manager.data.model.User
 
-const val BASE_URL = "https://api.github.com/users/"
-
 val USERS: List<User> = listOf(
   User(
     id = 1,
@@ -60,3 +58,16 @@ val USERS: List<User> = listOf(
     htmlUrl = "https://github.com/defunkt"
   )
 )
+
+object NetworkConstants {
+  const val BASE_URL = "https://api.github.com/"
+
+  const val TIMEOUT: Long = 60_000
+
+  const val pageLimit = 20
+
+  object UserApi {
+    val ROUTE = BASE_URL + "users"
+    val byId: (String) -> String = { id -> "$ROUTE/$id" }
+  }
+}

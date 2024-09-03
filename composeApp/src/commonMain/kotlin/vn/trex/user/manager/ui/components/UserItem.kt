@@ -1,6 +1,5 @@
 package vn.trex.user.manager.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -29,6 +27,8 @@ fun UserItem(
   user: User,
   onClick: () -> Unit,
 ) {
+  val AVATAR_SIZE = 64.dp
+
   Card(
     modifier = Modifier
       .fillMaxWidth()
@@ -46,7 +46,10 @@ fun UserItem(
     ) {
       AsyncImage(
         model = user.avatarUrl,
-        modifier = Modifier.height(80.dp).width(80.dp).clip(CircleShape).background(Color.Red),
+        modifier = Modifier
+          .height(AVATAR_SIZE)
+          .width(AVATAR_SIZE)
+          .clip(CircleShape),
         contentDescription = null
       )
       Column(
