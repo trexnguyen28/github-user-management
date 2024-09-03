@@ -1,5 +1,9 @@
 package vn.trex.user.manager.utils
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import vn.trex.user.manager.data.model.User
 
 val USERS: List<User> = listOf(
@@ -71,3 +75,11 @@ object NetworkConstants {
     val byId: (String) -> String = { id -> "$ROUTE/$id" }
   }
 }
+
+val FadeIn = fadeIn(animationSpec = tween(220, delayMillis = 90)) +
+  scaleIn(
+    initialScale = 0.92f,
+    animationSpec = tween(220, delayMillis = 90)
+  )
+
+val FadeOut = fadeOut(animationSpec = tween(90))

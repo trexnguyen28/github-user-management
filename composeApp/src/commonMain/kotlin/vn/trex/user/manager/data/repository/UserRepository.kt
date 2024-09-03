@@ -1,14 +1,17 @@
 package vn.trex.user.manager.data.repository
 
 import io.ktor.client.call.body
+import io.ktor.client.statement.HttpResponse
 
 import vn.trex.user.manager.client.GithubClient
-import vn.trex.user.manager.data.model.User
 
 class UserRepository(private val githubClient: GithubClient) {
-  suspend fun getUsers(offset: Int, limit: Int): List<User> {
+  private val offset = 0
+  private val limit = 20
+
+  suspend fun getUsers(): HttpResponse {
     val response = githubClient.getUsers(offset, limit)
-    return response.body<List<User>>()
+    return response.body()
 
 //    val response = try {
 //      githubClient.getUsers()

@@ -63,11 +63,9 @@ kotlin {
       // Voyager
       implementation(libs.voyager.navigator)
 
-
       // Koin
       api(libs.koin.core)
       implementation(libs.koin.compose)
-
     }
     nativeMain.dependencies {
       implementation(libs.ktor.client.darwin)
