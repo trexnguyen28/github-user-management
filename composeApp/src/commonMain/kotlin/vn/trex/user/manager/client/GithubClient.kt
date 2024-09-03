@@ -13,7 +13,9 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import vn.trex.user.manager.data.model.User
 import vn.trex.user.manager.utils.NetworkConstants
+import vn.trex.user.manager.utils.handleErrors
 
 class GithubClient {
   private val client = createPlatformHttpClient().config {
@@ -42,11 +44,13 @@ class GithubClient {
     }
   }
 
-  suspend fun getUsers(offset: Int = 0, limit: Int = NetworkConstants.pageLimit): HttpResponse {
-    return client.get {
-      url {
-        parameters.append("per_page", limit.toString())
-        parameters.append("since", offset.toString())
+  suspend fun getUsers(offset: Int = 0, limit: Int = NetworkConstants.pageLimit): List<User> {
+    return handleErrors {
+      client.get {
+        url {
+          parameters.append("per_page", limit.toString())
+          parameters.append("since", offset.toString())
+        }
       }
     }
   }
