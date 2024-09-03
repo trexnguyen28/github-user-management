@@ -83,3 +83,5 @@ val FadeIn = fadeIn(animationSpec = tween(220, delayMillis = 90)) +
   )
 
 val FadeOut = fadeOut(animationSpec = tween(90))
+
+const val dataStoreFileName = "caching.preferences_pb"

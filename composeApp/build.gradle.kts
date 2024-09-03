@@ -66,6 +66,12 @@ kotlin {
       api(libs.koin.core)
       implementation(libs.koin.compose)
       implementation(libs.lifecycle.viewmodel)
+
+      // Data Store
+      implementation(libs.androidx.data.store.core)
+
+      // Logger
+      implementation(libs.kermit)
     }
     nativeMain.dependencies {
       implementation(libs.ktor.client.darwin)

@@ -26,6 +26,7 @@ class MainViewModel(
 
   fun getUsers() {
     _isLoading.value = true
+    //
     viewModelScope.launch(Dispatchers.IO) {
       userRepository.getUsers()
         .onSuccess { users ->
