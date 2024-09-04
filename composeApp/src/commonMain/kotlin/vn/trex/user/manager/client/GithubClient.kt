@@ -24,7 +24,10 @@ class GithubClient {
     defaultRequest {
       url(NetworkConstants.UserApi.ROUTE)
       contentType(ContentType.Application.Json)
-      header(HttpHeaders.Authorization, "Bearer ${NetworkConstants.API_TOKEN}")
+
+      if (NetworkConstants.API_TOKEN.isNotBlank()) {
+        header(HttpHeaders.Authorization, "Bearer ${NetworkConstants.API_TOKEN}")
+      }
     }
 
     install(Logging) {

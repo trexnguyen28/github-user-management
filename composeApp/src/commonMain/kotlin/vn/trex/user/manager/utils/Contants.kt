@@ -8,7 +8,7 @@ object NetworkConstants {
   const val pageLimit = 20
 
   // TODO: You need to put token here
-  // In fact: We should not implement like that -> Put token in .env file or obtain from server
+  // Tech Debt In fact: We should not implement like that -> Put token in .env file or obtain from server
   const val API_TOKEN = ""
 
   object UserApi {
