@@ -8,8 +8,9 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
+import io.ktor.client.request.header
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
@@ -23,6 +24,7 @@ class GithubClient {
     defaultRequest {
       url(NetworkConstants.UserApi.ROUTE)
       contentType(ContentType.Application.Json)
+      header(HttpHeaders.Authorization, "Bearer ${NetworkConstants.API_TOKEN}")
     }
 
     install(Logging) {
