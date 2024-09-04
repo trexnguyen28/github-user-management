@@ -25,6 +25,9 @@ lifecycleViewModel = "2.8.2"
 navigationCompose = "2.8.0-alpha02"
 androidx-data-store = "1.1.1"
 kermit = "2.0.3"
+assertk = "0.28.1"
+coreKtx = "1.6.1"
+composeTest = "1.6.8"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -53,7 +56,6 @@ coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref
 coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 
-
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
@@ -64,6 +66,10 @@ koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComp
 koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinComposeMultiplatform" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
+assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
+compose-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "composeTest" }
+compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeTest" }
+core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
