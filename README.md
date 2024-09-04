@@ -1,8 +1,7 @@
 # Github User Management App
 
 The GitHub user management app is a demo project to demonstrate the ability to implement mobile apps
-natively for Android & iOS by using the latest technology,  
-architecture with **Kotlin and Compose Multiplatform**!
+natively for Android & iOS by using the latest technology, architecture with **Kotlin and Compose Multiplatform**!
 
 ## 📷 Quick Preview
 
